@@ -25,8 +25,7 @@ int main() {
   serverAddress.sin_family = AF_INET;
   serverAddress.sin_addr.s_addr = INADDR_ANY;
   serverAddress.sin_port = htons(PORT);
-  if (bind(listenSocket, (struct sockaddr *)&serverAddress,
-           sizeof(serverAddress)) < 0) {
+  if (bind(listenSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
     std::cerr << "Failed to bind" << std::endl;
     return -1;
   }
@@ -72,9 +71,7 @@ int main() {
       if (fd == listenSocket) {
         sockaddr_in clientAddress{};
         socklen_t clientAddressLength = sizeof(clientAddress);
-        int clientSocket =
-            accept(listenSocket, (struct sockaddr *)&clientAddress,
-                   &clientAddressLength);
+        int clientSocket = accept(listenSocket, (struct sockaddr *)&clientAddress, &clientAddressLength);
         if (clientSocket < 0) {
           std::cerr << "Failed to accept new connection" << std::endl;
           continue;
@@ -88,15 +85,14 @@ int main() {
           return -1;
         }
 
-        std::cout << "New client connected: "
-                  << inet_ntoa(clientAddress.sin_addr) << std::endl;
+        std::cout << "New client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;
       }
       // 否则是已连接socket上有数据可读
       else {
         char buffer[BUFFER_SIZE];
         memset(buffer, 0, sizeof(buffer));
 
-        ssize_t bytesRead = recv(fd, buffer, sizeof(buffer) - 1, 0);
+        ssize_t bytesRead = recv(fd, buffer, sizeof(buffer), 0);
         if (bytesRead <= 0) {
           // 客户端断开连接
           close(fd);
