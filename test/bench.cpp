@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 
   int sock;
   struct sockaddr_in serverAddress;
-  char buffer[BUFFER_SIZE] = {'h', 'e', 'l', 'l', 'o'};
+  char buffer[BUFFER_SIZE] = {'h', 'e', 'l', 'l', 'o', '\0'};
   char recv_buffer[BUFFER_SIZE] = {0};
 
   // 创建套接字
