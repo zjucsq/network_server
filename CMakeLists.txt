@@ -6,7 +6,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g")
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/reactor)
 
 file(GLOB CPP_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/*/*.cpp")
 
@@ -20,3 +20,4 @@ foreach(file ${CPP_FILES})
     endif()
 endforeach()
 
+add_executable(my_reactor_test reactor/reactor_test.cpp reactor/reactor.cpp reactor/acceptor.cpp reactor/common.cpp reactor/epoll_selector.cpp reactor/handler.cpp reactor/tcp_conn.cpp)
