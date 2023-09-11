@@ -8,11 +8,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-point
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/reactor)
 
-file(GLOB CPP_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/*/*.cpp")
+file(GLOB SINGLE_FILE_EXE "${CMAKE_CURRENT_SOURCE_DIR}/client/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/server/*.cpp")
 
-set(NOT_COMPILE "")
-
-foreach(file ${CPP_FILES})
+foreach(file ${SINGLE_FILE_EXE})
     get_filename_component(filename ${file} NAME_WE)
     if (NOT ${filename} IN_LIST NOT_COMPILE)
         add_executable(${filename} ${file})
@@ -20,4 +18,6 @@ foreach(file ${CPP_FILES})
     endif()
 endforeach()
 
-add_executable(my_reactor_test reactor/reactor_test.cpp reactor/reactor.cpp reactor/acceptor.cpp reactor/common.cpp reactor/epoll_selector.cpp reactor/handler.cpp reactor/tcp_conn.cpp)
+set(REACTOR_FILE reactor/reactor.cpp reactor/acceptor.cpp reactor/common.cpp reactor/epoll_selector.cpp reactor/handler.cpp reactor/tcp_conn.cpp)
+
+add_executable(my_reactor_test reactor/reactor_test.cpp ${REACTOR_FILE})

@@ -64,7 +64,6 @@ void accept_callback(int fd, int events, void *arg) {
 
     // 8.将新事件添加到reactor事件表中
     // 此处我们将新客户端的回调函数首先设置为recv_callback, 事件类型为EPOLLIN, 因为一般都是客户端向服务器发送数据的
-    // TODO: cli_fd下标对吗？
     reactor->events_[cli_fd] = Event{
         .fd_ = cli_fd, .events_ = EPOLLIN, .arg_ = arg, .callback_ = recv_callback, .status_ = 0, .length_ = 0, .last_active_ = time(NULL)};
     reactor->ep_selector_.register_event(reactor->events_[cli_fd]);
