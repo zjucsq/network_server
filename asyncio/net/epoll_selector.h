@@ -8,6 +8,7 @@
 
 #include "event.h"
 
+namespace asyncio {
 class EpollSelector {
  public:
   EpollSelector() : epfd_(epoll_create1(0)) {
@@ -54,3 +55,4 @@ class EpollSelector {
   int epfd_;
   int register_event_count_{1};
 };
+}  // namespace asyncio
