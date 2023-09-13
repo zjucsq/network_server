@@ -32,7 +32,7 @@ Task<int, NoopExecutor> async_write(int fd, std::vector<char> &buffer, int bytes
   co_return 1;
 }
 
-Task<int, LooperExecutor> run_echo_server() {
+Task<int, NoopExecutor> run_echo_server() {
   // 创建监听socket
   int listenSocket = socket(AF_INET, SOCK_STREAM, 0);
   if (listenSocket < 0) {
